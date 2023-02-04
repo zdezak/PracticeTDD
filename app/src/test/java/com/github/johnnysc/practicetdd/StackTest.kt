@@ -178,3 +178,65 @@ class StackTest {
 }
 
 private data class CustomObject(val id: String)
+
+class MyStack {
+    class LIFO<CustomObject>(maxCount: Int) {
+        private val maxCount = maxCount
+        private var stack = emptyList<CustomObject>()
+
+        init {
+            if (maxCount<1){
+                throw java.lang.IllegalStateException()
+            }
+        }
+
+        fun pop():CustomObject {
+            if (stack.isEmpty()){
+                throw java.lang.IllegalStateException()
+            }else{
+                val item =  stack.last()
+                stack = stack.dropLast(1)
+                return item
+            }
+        }
+
+        fun push(item: CustomObject) {
+            if (stack.size == maxCount) {
+                throw java.lang.IllegalStateException("Stack overflow exception, maximum is $maxCount")
+            } else {
+                stack = stack.plus(item)
+            }
+        }
+
+    }
+
+    class FIFO<CustomObject>(maxCount: Int) {
+        private val maxCount = maxCount
+        private var stack = emptyList<CustomObject>()
+
+        init {
+            if (maxCount<1){
+                throw java.lang.IllegalStateException()
+            }
+        }
+
+        fun pop():CustomObject {
+            if (stack.isEmpty()){
+                throw java.lang.IllegalStateException()
+            }else{
+                val item =  stack.first()
+                stack = stack.drop(1)
+                return item
+            }
+        }
+
+        fun push(item: CustomObject) {
+            if (stack.size == maxCount) {
+                throw java.lang.IllegalStateException("Stack overflow exception, maximum is $maxCount")
+            } else {
+                stack = stack.plus(item)
+            }
+        }
+    }
+
+}
